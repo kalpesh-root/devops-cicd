@@ -1,12 +1,14 @@
 pipeline {
     agent { label 'Built-in' }
-    
+    options {
+        timestamps() 
+    }
     environment {
         BRANCH_NAME = "${params.BRANCH}"
         RELEASE_NAME = "${params.RELEASE}" 
         DEVOPS_DIR = "DevopsDir"
     }
-    timestamps {
+   
     stages {
         stage('git checkout') {
             steps {
@@ -25,9 +27,7 @@ pipeline {
 
                 git branch: 'main', credentialsId: 'NIVA-NSE-workernode-rhel7', url: 'https://github.com/kalpesh-root/devops-cicd.git'
 
-                }
-              
-            
+                }            
             }
         }
 
@@ -38,10 +38,10 @@ pipeline {
                if (!(parameters.BRANCH_NAME?.trim() && params.RLEASE_NAME?.trim() ))
                     error(" parameters cannot be empty")
                     
-                    }
-                  }
-             
+                 }
               }
-            }
-        }
+             
+         }
+     }
+
 }
