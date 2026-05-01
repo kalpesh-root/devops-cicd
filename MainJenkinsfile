@@ -32,7 +32,7 @@ pipeline {
                 script {
                     try {
                         sh "mkdir -p ${env.DEVOPS_DIR}"
-                        dir(env.DEVOPS_DIR)
+                        dir(env.DEVOPS_DIR) {
                 
                         sh " echo 'clonning APPLICATION code' "
 
@@ -41,8 +41,10 @@ pipeline {
                         sh " echo 'clonning Devops script' "
 
                         git branch: 'main', credentialsId: 'NIVA-NSE-workernode-rhel7', url: 'https://github.com/kalpesh-root/devops-cicd.git'
-                 }
-                    catch (Exception e) {
+                        
+                        }
+
+                    } catch (Exception e) {
                         error("git clone failed: ${e.message}")
                       }
                  }
