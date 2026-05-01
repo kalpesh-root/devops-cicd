@@ -35,7 +35,7 @@ pipeline {
         steps {
             script {
 
-               if (!(parameters.BRANCH_NAME?.trim() && params.RLEASE_NAME?.trim() ))
+               if (!(params.BRANCH_NAME?.trim() && params.RLEASE_NAME?.trim() ))
                     error(" parameters cannot be empty")
                     
                  }
