@@ -1,16 +1,17 @@
 pipeline {
     agent { label 'Built-in' }
-
+    
     environment {
         BRANCH_NAME = "${params.BRANCH}"
         RELEASE_NAME = "${params.RELEASE}" 
         DEVOPS_DIR = "DevopsDir"
     }
-
+    timestamps {
     stages {
         stage('git checkout') {
             steps {
                 script {
+                    env.SERVICE = env.JOB_NAME.split('/')[-1]
                     currentBuild.displayName = "#${currentBuild.number} | ${env.BRANCH_NAME} | ${env.RELEASE_NAME}"
                 }
                 sh "mkdir -p ${env.DEVOPS_DIR}"
@@ -19,13 +20,28 @@ pipeline {
                 sh " echo 'clonning APPLICATION code' "
 
                 git branch: 'main', credentialsId: 'NIVA-NSE-workernode-rhel7', url: 'https://github.com/kalpesh-root/NIVA-testing.git'
-                
-                sh " ls "
+
+                sh " echo 'clonning Devops script' "
+
+                git branch: 'main', credentialsId: 'NIVA-NSE-workernode-rhel7', url: 'https://github.com/kalpesh-root/devops-cicd.git'
 
                 }
               
             
             }
         }
-    }
+
+    stage ('validation') {
+        steps {
+            script {
+
+               if (!(parameters.BRANCH_NAME?.trim() && params.RLEASE_NAME?.trim() ))
+                    error(" parameters cannot be empty")
+                    
+                    }
+                  }
+             
+              }
+            }
+        }
 }
