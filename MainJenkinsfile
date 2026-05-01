@@ -10,42 +10,49 @@ pipeline {
     }
    
     stages {
-        stage('git checkout') {
+        stage('validation') {
             steps {
                 script {
-                    env.SERVICE = env.JOB_NAME.split('/')[-1]
+                    env.SERVICE = env.JOB_NAME.split('/')[1]
+                    echo "the service is ${env.SERVICE}"
                     currentBuild.displayName = "#${currentBuild.number} | ${env.BRANCH_NAME} | ${env.RELEASE_NAME}"
                     
                     if (!(params.BRANCH?.trim() && params.RELEASE?.trim() ))
                     error(" parameters cannot be empty")
                  
-                }
-                    sh "mkdir -p ${env.DEVOPS_DIR}"
-                    dir(env.DEVOPS_DIR) {
+                        }
+
+                    }            
+             }
+
+        stage ('git checkout') {
+            steps {
+                cleanWs()
+
+                script {
+                    try {
+                        sh "mkdir -p ${env.DEVOPS_DIR}"
+                        dir(env.DEVOPS_DIR)
                 
-                    sh " echo 'clonning APPLICATION code' "
+                        sh " echo 'clonning APPLICATION code' "
 
-                    git branch: 'main', credentialsId: 'NIVA-NSE-workernode-rhel7', url: 'https://github.com/kalpesh-root/NIVA-testing.git'
+                        git branch: env.BRANCH_NAME, credentialsId: 'NIVA-NSE-workernode-rhel7', url: 'https://github.com/kalpesh-root/NIVA-testing.git'
 
-                    sh " echo 'clonning Devops script' "
+                        sh " echo 'clonning Devops script' "
 
-                    git branch: 'main', credentialsId: 'NIVA-NSE-workernode-rhel7', url: 'https://github.com/kalpesh-root/devops-cicd.git'
-
-                }            
+                        git branch: 'main', credentialsId: 'NIVA-NSE-workernode-rhel7', url: 'https://github.com/kalpesh-root/devops-cicd.git'
+                 }
+                    catch (Exception e) {
+                    error("git clone failed")
+                      }
+                 }
             }
         }
+    }
 
-    // stage ('validation') {
-    //     steps {
-    //         script {
-
-    //            if (!(params.BRANCH_NAME?.trim() && params.RELEASE_NAME?.trim() ))
-    //                 error(" parameters cannot be empty")
-                    
-    //              }
-    //           }
-             
-    //      }
-     }
-
+post {
+        always {
+            cleanWs()
+        }
+    }
 }
