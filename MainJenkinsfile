@@ -1,10 +1,11 @@
 pipeline {
-    agent any
+    agent {"built-in"}
 
     stages {
-        stage('Hello') {
+        stage('git checkout') {
             steps {
-                echo 'Hello World'
+                git branch: 'main', credentialsId: 'NIVA-NSE-workernode-rhel7', url: 'https://github.com/kalpesh-root/NIVA-testing.git'
+                sh " ls "
             }
         }
     }
