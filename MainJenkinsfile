@@ -1,5 +1,5 @@
 pipeline {
-    agent label{"Built-In"}
+    agent { label 'Built-in' }
 
     stages {
         stage('git checkout') {
