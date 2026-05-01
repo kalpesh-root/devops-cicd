@@ -16,7 +16,7 @@ pipeline {
                     env.SERVICE = env.JOB_NAME.split('/')[-1]
                     currentBuild.displayName = "#${currentBuild.number} | ${env.BRANCH_NAME} | ${env.RELEASE_NAME}"
                     
-                    if (!(params.BRANCH_NAME?.trim() && params.RELEASE_NAME?.trim() ))
+                    if (!(params.BRANCH?.trim() && params.RELEASE?.trim() ))
                     error(" parameters cannot be empty")
                  
                 }
