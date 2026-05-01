@@ -1,11 +1,19 @@
 pipeline {
     agent { label 'Built-in' }
 
+env.BRANCH_NAME = "${params.BRANCH}"
+env.RELEASE_NAME = "${params.RELEASE}"
+
+    buildName "#${env.BUILD_NUMBER}"-"[${env.BRANCH_NAME}]"
+
     stages {
         stage('git checkout') {
             steps {
+            dir (DevopDir)
+                sh " echo 'clonning APPLICATION code' "
                 git branch: 'main', credentialsId: 'NIVA-NSE-workernode-rhel7', url: 'https://github.com/kalpesh-root/NIVA-testing.git'
                 sh " ls "
+
             }
         }
     }
