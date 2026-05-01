@@ -43,7 +43,7 @@ pipeline {
                         git branch: 'main', credentialsId: 'NIVA-NSE-workernode-rhel7', url: 'https://github.com/kalpesh-root/devops-cicd.git'
                  }
                     catch (Exception e) {
-                    error("git clone failed")
+                        error("git clone failed: ${e.message}")
                       }
                  }
             }
