@@ -9,13 +9,17 @@ pipeline {
     stages {
         stage('git checkout') {
             steps {
-            dir (DevopDir)
-            script {
-                currentBuild.displayName = "#${currentBuild.number} | ${env.BRANCH_NAME} | ${env.RELEASE_NAME}"
-            }
+                dir (DevopDir) {
+                script {
+                    currentBuild.displayName = "#${currentBuild.number} | ${env.BRANCH_NAME} | ${env.RELEASE_NAME}"
+                }
                 sh " echo 'clonning APPLICATION code' "
+
                 git branch: 'main', credentialsId: 'NIVA-NSE-workernode-rhel7', url: 'https://github.com/kalpesh-root/NIVA-testing.git'
+                
                 sh " ls "
+                
+                }
 
             }
         }
