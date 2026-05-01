@@ -36,7 +36,7 @@ pipeline {
                 
                         sh " echo 'clonning APPLICATION code' "
 
-                        git branch: env.BRANCH_NAME, credentialsId: 'NIVA-NSE-workernode-rhel7', url: 'https://github.com/kalpesh-root/NIVA-testing.git'
+                        git branch: 'release' credentialsId: 'NIVA-NSE-workernode-rhel7', url: 'https://github.com/kalpesh-root/NIVA-testing.git'
 
                         sh " echo 'clonning Devops script' "
 
