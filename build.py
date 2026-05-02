@@ -3,7 +3,7 @@ import os
 import json
 import subprocess
 
-SERVICEFILE = "/configs/service.json"
+SERVICEFILE = "/home/kp/devops-cicd/configs/service.json"
 
 def ReadConfigs ():
     with open(SERVICEFILE, 'r') as file:
