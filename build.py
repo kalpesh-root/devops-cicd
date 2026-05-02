@@ -37,5 +37,8 @@ def BuildApps():
     print(os.getcwd())
 
     subprocess.run(BUILD_CMD, shell=True, check=True)
+
+if __name__ == "__main__":
+    BuildApps()
     
 
