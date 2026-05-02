@@ -1,0 +1,15 @@
+{
+    "JAVA-APP":{
+        "build_type": "jar",
+        "build_cmd" : "mvn clean package"
+        
+    }
+
+
+
+
+
+
+
+
+}

@@ -6,10 +6,11 @@ pipeline {
     environment {
         BRANCH_NAME = "${params.BRANCH}"
         RELEASE_NAME = "${params.RELEASE}" 
-        DEVOPS_DIR = "DevopsDir"
+        DEVOPS_DIR = "devops"
     }
    
     stages {
+
         stage('validation') {
             steps {
                 script {
@@ -49,7 +50,17 @@ pipeline {
                       }
                  }
             }
+        stage ('Code Build') {
+            steps {
+                dir(env.DEVOPS_DIR) {
+                sh "python3 /APP-CI/devops-cicd/build.py"
+                 }
+
+            }
         }
+
+     }
+
     }
 
 post {
