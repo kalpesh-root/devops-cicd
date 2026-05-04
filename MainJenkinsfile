@@ -11,7 +11,7 @@ pipeline {
    
     stages {
 
-        stage('validation') {
+        stage ('validation') {
             steps {
                 script {
                     env.SERVICE = env.JOB_NAME.split('/')[1]
@@ -28,7 +28,7 @@ pipeline {
 
         stage ('git checkout') {
             steps {
-                cleanWs()
+            cleanWs()
 
                 script {
                     try {
@@ -50,6 +50,7 @@ pipeline {
                       }
                  }
             }
+        }
         stage ('Code Build') {
             steps {
                 dir(env.DEVOPS_DIR) {
@@ -61,7 +62,7 @@ pipeline {
 
      }
 
-    }
+    
 
 post {
         always {
