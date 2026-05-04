@@ -3,8 +3,6 @@ import os
 import json
 import subprocess
 
-print("Current Working Directory:", os.getcwd())
-
 SERVICEFILE = "devops/configs/service.json"
 
 def ReadConfigs ():
@@ -31,17 +29,15 @@ def BuildService(env, config):
 def BuildApps():
     config = ReadConfigs()
     env = GetEnvs()
-    serivce_path = os.path.join(os.getcwd(), "app", env["SERVICE"])
+    service_path = os.path.join(os.getcwd(), "app", env["SERVICE"])
     BUILD_CMD, BUILD_TYPE  = BuildService(env,config )
-    print ("printing build and command:",BUILD_TYPE,BUILD_CMD )
+    print ("Executing this command:",BUILD_CMD )
 
-    os.chdir(serivce_path)
-
-    print("printing service path:", os.getcwd())
+    os.chdir(service_path)
 
     subprocess.run(BUILD_CMD, shell=True, check=True)
 
 if __name__ == "__main__":
     BuildApps()
-    
 
+    
