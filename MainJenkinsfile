@@ -33,12 +33,13 @@ pipeline {
                 script {
                     try {
                         sh "mkdir -p ${env.DEVOPS_DIR}"
-                        dir(env.DEVOPS_DIR) {
+                        dir("app") {
                 
                         sh " echo 'clonning APPLICATION code' "
 
                         git branch: 'release', credentialsId: 'NIVA-NSE-workernode-rhel7', url: 'https://github.com/kalpesh-root/NIVA-testing.git'
-
+                        }
+                        dir("devops") {
                         sh " echo 'clonning Devops script' "
 
                         git branch: 'main', credentialsId: 'NIVA-NSE-workernode-rhel7', url: 'https://github.com/kalpesh-root/devops-cicd.git'
