@@ -23,7 +23,7 @@ def GetEnvs ():
 def BuildService(env, config):
     SERVICE = env["SERVICE"]
     BUILD_CMD = config[SERVICE]["build_cmd"]
-    BUILD_TYPE = config[SERVICE]["type"]
+    BUILD_TYPE = config[SERVICE]["build_type"]
     return BUILD_CMD, BUILD_TYPE
 
 
