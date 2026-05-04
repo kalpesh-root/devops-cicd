@@ -54,7 +54,9 @@ pipeline {
         stage ('Code Build') {
             steps {
                 dir("$WORKSPACE") {
-                sh "python3 devops-cicd/build.py"
+                sh  "sh pwd"
+                    "sh ls -l"
+                    "python3 devops-cicd/build.py"
                  }
 
             }
