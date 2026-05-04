@@ -3,6 +3,8 @@ import os
 import json
 import subprocess
 
+print("Current Working Directory:", os.getcwd())
+
 SERVICEFILE = "/configs/service.json"
 
 def ReadConfigs ():
