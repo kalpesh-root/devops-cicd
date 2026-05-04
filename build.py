@@ -5,7 +5,7 @@ import subprocess
 
 print("Current Working Directory:", os.getcwd())
 
-SERVICEFILE = "configs/service.json"
+SERVICEFILE = "devops/configs/service.json"
 
 def ReadConfigs ():
     with open(SERVICEFILE, 'r') as file:
