@@ -31,12 +31,13 @@ def BuildService(env, config):
 def BuildApps():
     config = ReadConfigs()
     env = GetEnvs()
-    serivce_path = env["SERVICE"]
+    serivce_path = os.path.join(os.getcwd(), "app")
+    print (serivce_path)
     BUILD_TYPE, BUILD_CMD = BuildService(env,config )
 
     os.chdir(serivce_path)
 
-    print(os.getcwd())
+    print("printing service path:", os.getcwd())
 
     subprocess.run(BUILD_CMD, shell=True, check=True)
 
