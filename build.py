@@ -32,7 +32,7 @@ def BuildApps():
     config = ReadConfigs()
     env = GetEnvs()
     serivce_path = os.path.join(os.getcwd(), "app", env["SERVICE"])
-    BUILD_TYPE, BUILD_CMD = BuildService(env,config )
+    BUILD_CMD, BUILD_TYPE  = BuildService(env,config )
     print ("printing build and command:",BUILD_TYPE,BUILD_CMD )
 
     os.chdir(serivce_path)
