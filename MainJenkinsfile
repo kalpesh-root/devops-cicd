@@ -54,7 +54,7 @@ pipeline {
         stage ('Code Build') {
             steps {
                 dir(env.DEVOPS_DIR) {
-                sh "python3 /APP-CI/devops-cicd/build.py"
+                sh "python3 ../APP-CI/devops-cicd/build.py"
                  }
 
             }
