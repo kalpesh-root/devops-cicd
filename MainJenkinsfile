@@ -56,7 +56,7 @@ stages {
             script {
                 try {
                     dir("$WORKSPACE") {
-                       load "python3 devops/build.py"
+                       sh "python3 devops/build.py"
                  
                  }
 
