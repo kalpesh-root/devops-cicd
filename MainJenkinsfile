@@ -8,6 +8,10 @@ pipeline{
         RELEASE_NAME = "${params.RELEASE}" 
         DEVOPS_DIR = "devops"
     }
+
+
+currentBuild.displayName = "#${env.SERVICE}#${env.BUILD_NUMBER}" 
+
 stages {
     
     stage ("validation") {
@@ -61,6 +65,7 @@ post {
     always {
             cleanWs()
         }
+    archiveArtifacts allowEmptyArchive: true, artifacts: '**/*', followSymlinks: false
     }
 }    
 

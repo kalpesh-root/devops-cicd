@@ -19,7 +19,7 @@ def ReadConfigs ():
     return jsondata
 
 def Builddtl (env,config):
-    SERVICE = env("SERVICE")
+    SERVICE = env["SERVICE"]
     BUILD_CMD = config[SERVICE]["build_cmd"]
     BUILD_TYPE = config[SERVICE]["build_type"]
     return BUILD_CMD, BUILD_TYPE
