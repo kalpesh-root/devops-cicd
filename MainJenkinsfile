@@ -60,6 +60,7 @@ stages {
                     dir("$WORKSPACE") {
                        sh "python3 devops/build.py"
                        sh "pwd"
+                       sh "ls -lrt"
                        sh "find . -type d -name target"
                        sh "find . -name '*.jar'"
                        sh "ls -lrt app/JAVA-APP/target || true"
