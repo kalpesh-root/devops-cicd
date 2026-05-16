@@ -31,34 +31,40 @@ stages {
     
     stage ("clone Repos") {
         steps {
+            try {
             dir("app") {
-              
                 sh" echo 'cloning source code'"
                 git branch: 'release', credentialsId: 'NIVA-NSE-workernode-rhel7', url: 'https://github.com/kalpesh-root/NIVA-testing.git'
-            
+                cleanWs(patterns: [[pattern: '.git, @tmp', type: 'EXCLUDE']])
             }
 
             dir("devops") {
             sh " echo 'cloning devops code'"
                 git branch: 'main', credentialsId: 'NIVA-NSE-workernode-rhel7', url: 'https://github.com/kalpesh-root/devops-cicd.git'
-            
+                cleanWs(patterns: [[pattern: '.git, @tmp', type: 'EXCLUDE']])
             }
-
+        } catch (exception e) {
+            error("Git clone failed: ${e.message}")
+            }
         }
     }
 
     stage ('Code Build') {
         steps {
+            try {
             dir("$WORKSPACE") {
                 sh "python3 devops/build.py"
                  
                  }
 
+            } catch (exception e) {
+                error("Build failed: ${e.message}")
+
             }
         }
 
      }
-
+}
 post {
     always {
             archiveArtifacts allowEmptyArchive: true, artifacts: '**/*', followSymlinks: false
