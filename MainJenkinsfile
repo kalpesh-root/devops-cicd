@@ -37,7 +37,7 @@ stages {
 
             dir("devops") {
             sh "cloning devops code"
-            git branch: 'release', credentialsId: 'NIVA-NSE-workernode-rhel7', url: 'https://github.com/kalpesh-root/NIVA-testing.git'
+            git branch: 'main', credentialsId: 'NIVA-NSE-workernode-rhel7', url: 'https://github.com/kalpesh-root/devops-cicd.git'
 
             }
 

@@ -33,4 +33,5 @@ def BuildService ():
     print ("Executing this command:",BUILD_CMD )
 
 if __name__ == "__main__":
+    
     BuildService()
