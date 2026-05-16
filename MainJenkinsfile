@@ -56,12 +56,7 @@ stages {
             script {
                 try {
                     dir("$WORKSPACE") {
-                       sh "python3 devops/build.py"
-                       sh "pwd"
-                       sh "ls -lrt"
-                       sh "find . -type d -name target"
-                       sh "find . -name '*.jar'"
-                       sh "ls -lrt app/JAVA-APP/target || true"
+                       load "devops/groovy/buildjenfile"
                  
                  }
 
@@ -76,7 +71,7 @@ stages {
 }
 post {
     always {
-            archiveArtifacts allowEmptyArchive: true, artifacts: '**/*', followSymlinks: false
+            archiveArtifacts allowEmptyArchive: true, artifacts: 'devops', followSymlinks: false
             cleanWs()
             
         }
