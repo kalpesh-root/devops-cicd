@@ -37,12 +37,13 @@ stages {
                     sh" echo 'cloning source code'"
                     git branch: 'release', credentialsId: 'NIVA-NSE-workernode-rhel7', url: 'https://github.com/kalpesh-root/NIVA-testing.git'
                     cleanWs(patterns: [[pattern: '.git, @tmp', type: 'EXCLUDE']])
+                    sh " rm -rf .git @tmp"
             }
 
                 dir("devops") {
                     sh " echo 'cloning devops code'"
                     git branch: 'main', credentialsId: 'NIVA-NSE-workernode-rhel7', url: 'https://github.com/kalpesh-root/devops-cicd.git'
-                    cleanWs(patterns: [[pattern: '.git, @tmp', type: 'EXCLUDE']])
+                    sh " rm -rf .git @tmp"
                 }
              }  catch (Exception e) { 
                     error("Git clone failed: ${e.message}")
