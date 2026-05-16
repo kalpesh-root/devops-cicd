@@ -56,7 +56,7 @@ stages {
             script {
                 try {
                     dir("$WORKSPACE") {
-                       load "devops/groovy/buildjenfile"
+                       load "python3 devops/build.py"
                  
                  }
 
