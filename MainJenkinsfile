@@ -22,7 +22,6 @@ stages {
                 
                 if (!(params.BRANCH?.trim() && params.RELEASE?.trim() ))
                 error(" parameters cannot be empty")
-
             }
 
         }
