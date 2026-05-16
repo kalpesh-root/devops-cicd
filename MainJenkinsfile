@@ -32,7 +32,7 @@ stages {
     stage ("clone Repos") {
         steps {
             try {
-            dir("app") {
+                dir("app") {
                 sh" echo 'cloning source code'"
                 git branch: 'release', credentialsId: 'NIVA-NSE-workernode-rhel7', url: 'https://github.com/kalpesh-root/NIVA-testing.git'
                 cleanWs(patterns: [[pattern: '.git, @tmp', type: 'EXCLUDE']])
@@ -45,7 +45,7 @@ stages {
             }
         } catch (Exception e) { 
             error("Git clone failed: ${e.message}")
-            
+
             }
         }
     }
@@ -53,7 +53,7 @@ stages {
     stage ('Code Build') {
         steps {
             try {
-            dir("$WORKSPACE") {
+                dir("$WORKSPACE") {
                 sh "python3 devops/build.py"
                  
                  }
