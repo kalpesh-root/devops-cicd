@@ -43,8 +43,9 @@ stages {
                 git branch: 'main', credentialsId: 'NIVA-NSE-workernode-rhel7', url: 'https://github.com/kalpesh-root/devops-cicd.git'
                 cleanWs(patterns: [[pattern: '.git, @tmp', type: 'EXCLUDE']])
             }
-        } catch (exception e) {
+        } catch (Exception e) { 
             error("Git clone failed: ${e.message}")
+            
             }
         }
     }
@@ -57,7 +58,7 @@ stages {
                  
                  }
 
-            } catch (exception e) {
+            } catch (Exception e) {
                 error("Build failed: ${e.message}")
 
             }
