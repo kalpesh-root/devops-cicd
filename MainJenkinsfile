@@ -1,5 +1,5 @@
-pipeline {
-    agent { label 'Built-in' }
+pipeline{
+    agent {label 'built-in'}
     options {
         timestamps() 
     }
@@ -8,54 +8,46 @@ pipeline {
         RELEASE_NAME = "${params.RELEASE}" 
         DEVOPS_DIR = "devops"
     }
-   
-    stages {
+stages {
+    
+    stage ("validation") {
+        steps {
+        cleanWs()
+            script {
 
-        stage ('validation') {
-            steps {
-                script {
-                    env.SERVICE = env.JOB_NAME.split('/')[1]
-                    echo "the service is ${env.SERVICE}"
-                    currentBuild.displayName = "#${currentBuild.number} | ${env.BRANCH_NAME} | ${env.RELEASE_NAME}"
-                    
-                    if (!(params.BRANCH?.trim() && params.RELEASE?.trim() ))
-                    error(" parameters cannot be empty")
-                 
-                        }
-
-                    }            
-             }
-
-        stage ('git checkout') {
-            steps {
-            cleanWs()
-
-                script {
-                    try {
-                        sh "mkdir -p ${env.DEVOPS_DIR}"
-                        dir("app") {
+                env.SERVICE = env.JOB_NAME.split('/')[1]
+                echo "pipeline is running for ${SERVICE}"
                 
-                        sh " echo 'clonning APPLICATION code' "
+                if (!(params.BRANCH?.trim() && params.RELEASE?.trim() ))
+                error(" parameters cannot be empty")
 
-                        git branch: 'release', credentialsId: 'NIVA-NSE-workernode-rhel7', url: 'https://github.com/kalpesh-root/NIVA-testing.git'
-                        }
-                        dir("devops") {
-                        sh " echo 'clonning Devops script' "
-
-                        git branch: 'main', credentialsId: 'NIVA-NSE-workernode-rhel7', url: 'https://github.com/kalpesh-root/devops-cicd.git'
-                        
-                        }
-
-                    } catch (Exception e) {
-                        error("git clone failed: ${e.message}")
-                      }
-                 }
             }
+
         }
-        stage ('Code Build') {
-            steps {
-                dir("$WORKSPACE") {
-                     sh "python3 devops/build.py"
+
+    }
+    
+    stage ("clone Repos") {
+        steps {
+            dir("app") {
+            sh "cloning source code"
+            git branch: 'release', credentialsId: 'NIVA-NSE-workernode-rhel7', url: 'https://github.com/kalpesh-root/NIVA-testing.git'
+
+            }
+
+            dir("devops") {
+            sh "cloning devops code"
+            git branch: 'release', credentialsId: 'NIVA-NSE-workernode-rhel7', url: 'https://github.com/kalpesh-root/NIVA-testing.git'
+
+            }
+
+        }
+    }
+
+    stage ('Code Build') {
+        steps {
+            dir("$WORKSPACE") {
+                sh "python3 devops/build.py"
                  
                  }
 
@@ -64,11 +56,22 @@ pipeline {
 
      }
 
-    
-
 post {
-        always {
+    always {
             cleanWs()
         }
     }
-}
+}    
+
+
+
+
+
+
+
+
+
+
+
+
+
