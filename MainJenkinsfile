@@ -8,9 +8,7 @@ pipeline{
         RELEASE_NAME = "${params.RELEASE}" 
         DEVOPS_DIR = "devops"
     }
-
-
-currentBuild.displayName = "#${env.SERVICE}#${env.BUILD_NUMBER}" 
+ 
 
 stages {
     
@@ -18,9 +16,9 @@ stages {
         steps {
         cleanWs()
             script {
-
                 env.SERVICE = env.JOB_NAME.split('/')[1]
                 echo "pipeline is running for ${SERVICE}"
+                currentBuild.displayName = "#${env.SERVICE}#${env.BUILD_NUMBER}#${env.RELEASE}"
                 
                 if (!(params.BRANCH?.trim() && params.RELEASE?.trim() ))
                 error(" parameters cannot be empty")
@@ -63,9 +61,10 @@ stages {
 
 post {
     always {
+            archiveArtifacts allowEmptyArchive: true, artifacts: '**/*', followSymlinks: false
             cleanWs()
+            
         }
-    archiveArtifacts allowEmptyArchive: true, artifacts: '**/*', followSymlinks: false
     }
 }    
 
