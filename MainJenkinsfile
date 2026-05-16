@@ -71,7 +71,7 @@ stages {
 }
 post {
     always {
-            archiveArtifacts allowEmptyArchive: true, artifacts: 'devops', followSymlinks: false
+            archiveArtifacts allowEmptyArchive: true, artifacts: 'devops/**/*', followSymlinks: false
             cleanWs()
             
         }
