@@ -30,15 +30,16 @@ stages {
     stage ("clone Repos") {
         steps {
             dir("app") {
-            sh "cloning source code"
-            git branch: 'release', credentialsId: 'NIVA-NSE-workernode-rhel7', url: 'https://github.com/kalpesh-root/NIVA-testing.git'
-
+              
+                sh" echo 'cloning source code'"
+                git branch: 'release', credentialsId: 'NIVA-NSE-workernode-rhel7', url: 'https://github.com/kalpesh-root/NIVA-testing.git'
+            
             }
 
             dir("devops") {
-            sh "cloning devops code"
-            git branch: 'main', credentialsId: 'NIVA-NSE-workernode-rhel7', url: 'https://github.com/kalpesh-root/devops-cicd.git'
-
+            sh " echo 'cloning devops code'"
+                git branch: 'main', credentialsId: 'NIVA-NSE-workernode-rhel7', url: 'https://github.com/kalpesh-root/devops-cicd.git'
+            
             }
 
         }
